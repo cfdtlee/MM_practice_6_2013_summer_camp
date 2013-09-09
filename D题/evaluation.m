@@ -62,44 +62,50 @@ zaihaigailv_all=1-(1-zaihaigailv(:,1)).*(1-zaihaigailv(:,2)).*(1-zaihaigailv(:,3
 sunshilv=1-0.5.^(sum(sunshi,2)./100);
 s2=0:0.01:1;
 figure
+ans=0.058;
 for k=1:4
     bili=[0.3 0.5 0.7 1];
     bt=['返青期';'抽穗期';'灌浆期';'成熟期'];
-    y(1,:)=18-311*s2*sunshilv(k)*bili(k)*zaihaigailv_all(k);
-    y(2,:)=311*s2*sunshilv(k)*bili(k)*zaihaigailv_all(k)-3.6;
+    y(1,:)=311*ans-311*s2*sunshilv(k)*bili(k)*zaihaigailv_all(k);
+    y(2,:)=311*s2*sunshilv(k)*bili(k)*zaihaigailv_all(k)-311*ans*0.2;
     subplot(2,2,k);
     hold on
     title(bt(k,:));
     plot(s2,y,'LineWidth',3);plot(s2,0.*s2,':k');
     legend('保险公司收益','农户收益');
+    temp(k,:)=[311*ans-y(1,30),y(2,30)+ans*0.2*311];
 end %小麦各时期y1,y2
 
 figure
+ans=0.059;
 for k=5:7%玉米
     kk=k-4;
     bili(5:7)=[0.4 0.7 1];
     bt=['定植成活—分孽期';'拨节期——抽穗期';'灌浆期——成熟期'];
-    y(1,:)=15-251*s2*sunshilv(k)*bili(k)*zaihaigailv_all(k);
-    y(2,:)=251*s2*sunshilv(k)*bili(k)*zaihaigailv_all(k)-3;
+    y(1,:)=251*ans-251*s2*sunshilv(k)*bili(k)*zaihaigailv_all(k);
+    y(2,:)=251*s2*sunshilv(k)*bili(k)*zaihaigailv_all(k)-251*ans*0.2;
     subplot(1,3,kk);
     hold on
     title(bt(kk,:));
     plot(s2,y,'LineWidth',3);plot(s2,0.*s2,':k');
     legend('保险公司收益','农户收益');
+    temp(k,:)=[251*ans-y(1,30),y(2,30)+ans*0.2*251];
 end 
 
 figure
+ans=0.058;
 for k=8:10%水稻
     kk=k-7;
     bili(8:10)=[0.4 0.7 1];
     bt=['定植成活—分孽期';'拨节期——抽穗期';'灌浆期——成熟期'];
-    y(1,:)=16-278*s2*sunshilv(k)*bili(k)*zaihaigailv_all(k);
-    y(2,:)=278*s2*sunshilv(k)*bili(k)*zaihaigailv_all(k)-3.2;
+    y(1,:)=278*ans-278*s2*sunshilv(k)*bili(k)*zaihaigailv_all(k);
+    y(2,:)=278*s2*sunshilv(k)*bili(k)*zaihaigailv_all(k)-278*ans*0.2;
     subplot(1,3,kk);
     hold on
     title(bt(kk,:));
     plot(s2,y,'LineWidth',3);plot(s2,0.*s2,':k');
     legend('保险公司收益','农户收益');
+    temp(k,:)=[278*ans-y(1,30),y(2,30)+ans*0.2*278];
 end
     %%0.0292, 0.0246
     

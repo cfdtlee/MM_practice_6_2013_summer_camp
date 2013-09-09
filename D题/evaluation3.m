@@ -1,6 +1,6 @@
 %{
 陕西
-4697.2	1553	718	135
+destroy=[4697.2	1553	718	135
 4726.3	2516	1488	470
 4555.4	1910	1240	397
 4331.9	2475	1383	338
@@ -13,7 +13,7 @@
 4165.8	1046.8	502.3	66
 4154.1	1221	571	74
 4185.6	1122	536	83
-4181	763	292	74
+4181	763	292	74];
 %}
 
 load destroy.txt
@@ -26,27 +26,31 @@ destroy3=mean(destroy2);
 
 mianhuajine=302;
 mianhuafeilv=sum(destroy3(2:end)/destroy3(1).* destroy3(2:end)/sum(destroy3(2:end)))-var(destroy3(2:end)/destroy3(1));%0.0719
-mianhuabili=[0.2*0.3 0.5*0.7 0.9];
-mianhuabt=['受灾';'成灾';'绝灾'];
+mianhuabili=[0.2*0.8 0.7*0.9 1];
+mianhuabt=['受灾';'成灾';'绝收'];
+
+%temp[0.395079916052719,0.395079916052720;0.719239003889779,0.719239003889781;0.0504561337799920,0.0504561337799920]!
+
 for k=1:3
-    y(1,:)=mianhuajine*mianhuafeilv-mianhuajine*s2*mianhuabili(k)*destroy3(k)/destroy3(1);
-    y(2,:)=mianhuajine*s2*mianhuabili(k)*destroy3(k)/destroy3(1)-mianhuajine*mianhuafeilv*0.2;
+    y(1,:)=mianhuajine*mianhuafeilv-mianhuajine*s2*mianhuabili(k)*destroy3(k+1)/destroy3(1);
+    y(2,:)=mianhuajine*s2*mianhuabili(k)*destroy3(k+1)/destroy3(1)-mianhuajine*mianhuafeilv*0.2;
     %y(1,:)=baoxianjine(kk)*feilv(kk)-baoxianjine(kk)*s2*sunshilv(k)*bili*zaihaigailv_all(k);
     %y(2,:)=baoxianjine(kk)*s2*sunshilv(k)*bili*zaihaigailv_all(k)-baoxianjine(kk)*feilv(kk)*0.2;
-    
     subplot(1,3,k);hold on;
     title(['\fontsize{14}棉花' mianhuabt(k,:) '赔付情况']);
     plot(s2,y,'LineWidth',3);plot(s2,0.*s2,':k');
     plot([destroy3(k+1)/destroy3(1) destroy3(k+1)/destroy3(1)],[-5 25],':k');
     legend('保险公司收益','农户收益','实际灾害程度');
+    tt=ceil(destroy3(k+1)/destroy3(1)*100);
+    temp(k,:)=[302*mianhuafeilv-y(1,tt),y(2,tt)+mianhuafeilv*0.2*302];
 end %棉花小麦各时期y1,y2
-
 
 y(1,:)=mianhuajine*mianhuafeilv;
 y(2,:)=-mianhuajine*mianhuafeilv*0.2;
+%{
 for k=1:3
-    y(1,:)=y(1,:)-mianhuajine*s2*mianhuabili(k)*destroy3(k)/destroy3(1);
-    y(2,:)=y(2,:)+mianhuajine*s2*mianhuabili(k)*destroy3(k)/destroy3(1);
+    y(1,:)=y(1,:)-mianhuajine*s2*mianhuabili(k)*destroy3(k+1)/destroy3(1);
+    y(2,:)=y(2,:)+mianhuajine*s2*mianhuabili(k)*destroy3(k+1)/destroy3(1);
     %y(1,:)=baoxianjine(kk)*feilv(kk)-baoxianjine(kk)*s2*sunshilv(k)*bili*zaihaigailv_all(k);
     %y(2,:)=baoxianjine(kk)*s2*sunshilv(k)*bili*zaihaigailv_all(k)-baoxianjine(kk)*feilv(kk)*0.2;
     
@@ -56,6 +60,6 @@ hold on;
     plot(s2,y,'LineWidth',3);plot(s2,0.*s2,':k');
     plot([destroy3(k+1)/destroy3(1) destroy3(k+1)/destroy3(1)],[-100 100],':k');
     legend('保险公司收益','农户收益');
-
+%}
 
 
