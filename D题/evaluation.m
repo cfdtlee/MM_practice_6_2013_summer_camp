@@ -106,7 +106,7 @@ end
     
     
 %改进后
-ans=0.0289
+ans=0.0289;figure
 for k=1:4 %小麦各时期y1,y2    
     bili=[0.7 0.7 0.7 1];
     bt=['返青期';'抽穗期';'灌浆期';'成熟期'];
@@ -117,8 +117,9 @@ for k=1:4 %小麦各时期y1,y2
     title(bt(k,:));
     plot(s2,y,'LineWidth',3);plot(s2,0.*s2,':k');
     legend('保险公司收益','农户收益');
+    temp(k,:)=[311*ans-y(1,30),y(2,30)+ans*0.2*311];
 end
-ans=0.0245;
+ans=0.0245;figure
 for k=5:7%玉米
     kk=k-4;
     bili(5:7)=[0.5 0.7 1];
@@ -130,8 +131,9 @@ for k=5:7%玉米
     title(bt(kk,:));
     plot(s2,y,'LineWidth',3);plot(s2,0.*s2,':k');
     legend('保险公司收益','农户收益');
+    temp(k,:)=[251*ans-y(1,30),y(2,30)+ans*0.2*251];
 end 
-
+figure
 ans=0.0166;
 for k=8:10%水稻
     kk=k-7;
@@ -144,4 +146,5 @@ for k=8:10%水稻
     title(bt(kk,:));
     plot(s2,y,'LineWidth',3);plot(s2,0.*s2,':k');
     legend('保险公司收益','农户收益');
+    temp(k,:)=[278*ans-y(1,30),y(2,30)+ans*0.2*278];
 end    
